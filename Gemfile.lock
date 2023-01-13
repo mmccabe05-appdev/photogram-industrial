@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/ctran/annotate_models.git
+  revision: ae0b79c0f816b2433a3f00b9a73b3aea1bd3e84b
+  specs:
+    annotate (3.2.0)
+      activerecord (>= 3.2, < 8.0)
+      rake (>= 10.4, < 14.0)
+
+GIT
   remote: https://github.com/firstdraft/web_git.git
   revision: 614ba241422a5516f5a0a02ff75557640e87a855
   specs:
@@ -74,9 +82,6 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
-    annotate (3.2.0)
-      activerecord (>= 3.2, < 8.0)
-      rake (>= 10.4, < 14.0)
     ansispan (0.0.1)
     ast (2.4.2)
     awesome_print (1.9.2)
@@ -376,7 +381,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  annotate
+  annotate!
   awesome_print
   better_errors
   binding_of_caller
