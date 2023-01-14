@@ -2,6 +2,7 @@ task sample_data: :environment do
   p "creating sample data"
   
   if Rails.env.development?
+    Photo.destroy_all
     FollowRequest.destroy_all
     User.destroy_all
   end 
