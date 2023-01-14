@@ -1,10 +1,10 @@
 task sample_data: :environment do
   p "creating sample data"
   
-  # if Rails.env.development?
-  #   User.destroy_all
-  #   FollowRequest.destroy_all
-  # end 
+  if Rails.env.development?
+    FollowRequest.destroy_all
+    User.destroy_all
+  end 
 
   12.times do 
     name = Faker::Name.first_name
@@ -40,5 +40,14 @@ task sample_data: :environment do
     end
   end
   p "#{FollowRequest.count} follow requests have been created"
-
+  # create a bunch of photos for each user
+  users.each do |user|
+    rand(3..7).times do 
+      user.own_photos.create(
+        caption: Faker::Quote.famous_last_words,
+        image: "https://robohash.org/#{rand(1..100)}.png"
+      )
+    end
+  end
+  p "#{Photo.count} photos have been created"
 end
