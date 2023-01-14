@@ -1,11 +1,25 @@
 task sample_data: :environment do
+  starting = Time.now
   p "creating sample data"
-  
   if Rails.env.development?
+    p "destroying previous data"
+    Like.destroy_all
+    p "#{Like.count} likes remain"
+    Comment.destroy_all
+    p "#{Comment.count} comments remain"
+
     Photo.destroy_all
+    p "#{Photo.count} photos remain"
+
     FollowRequest.destroy_all
+    p "#{FollowRequest.count} follow requests remain"
+
     User.destroy_all
+    p "#{User.count} users remain"
+
   end 
+
+  p "creating new users"
 
   12.times do 
     name = Faker::Name.first_name
@@ -21,9 +35,9 @@ task sample_data: :environment do
     # n.username = Faker::Internet.username(specifier: 5..8)
     # n.save
   end
-  p "#{User.count} users have been created"
 
   users = User.all
+  p "adding follow requests"
   users.each do |first_user|
     users.each do |second_user|
       if rand < 0.75
@@ -40,15 +54,41 @@ task sample_data: :environment do
       end
     end
   end
-  p "#{FollowRequest.count} follow requests have been created"
   # create a bunch of photos for each user
+  p "adding photos, likes and comments"
   users.each do |user|
-    rand(3..7).times do 
-      user.own_photos.create(
+    rand(15).times do 
+
+      photo = user.own_photos.create(
         caption: Faker::Quote.famous_last_words,
-        image: "https://robohash.org/#{rand(1..100)}.png"
+        image: "https://robohash.org/#{rand(9999)}"
       )
+
+      user.followers.each do |follower|
+        # adds likes to each added photo above
+        # if rand < 0.5
+        #   photo.fans << follower # shovel operator pushes into the likes table
+        # end
+
+        # adds comments to each photo above one by one
+        if rand < 0.33
+          photo.comments.create(
+            body: Faker::Quote.jack_handey,
+            author: follower
+          )
+        end
+      end
+
     end
   end
+
+  ending = Time.now
+  p "it took #{(ending - starting).to_i} seconds to create sample data"
+  p "#{FollowRequest.count} follow requests have been created"
+  p "#{User.count} users have been created"
   p "#{Photo.count} photos have been created"
+  p "#{Like.count} likes have been liked"
+  p "#{Comment.count} comments have been made"
+
+
 end
