@@ -75,7 +75,7 @@ task sample_data: :environment do
 
       user.followers.each do |follower|
         # adds likes to each added photo above
-        if rand < 0.5
+        if rand < 0.8
           n = Like.new
           n.fan = follower
           n.photo = photo
