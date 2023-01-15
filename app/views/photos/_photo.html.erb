@@ -1,28 +1,38 @@
-     <div class="card">
+<div class="card">
 
-      <%= image_tag photo.image %>
+  <%= image_tag photo.image %>
 
-      <div class="card-body">
-        <h5 class="card-title">@<%= photo.owner.username %></h5>
-        <p class="card-text"> <%= photo.caption %></p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <% photo.comments.each do |comment| %>
-          <li class="list-group-item">
+  <div class="card-body">
+    <div class="row card-title">
+      <div class="card-title col"><h5><%= link_to "@#{photo.owner.username}", user_path(photo.owner.username), class: "card-title" %></h5></div>
+      <div class="font-weight-lighter col text-right">Posted <%= time_ago_in_words(photo.created_at) %> ago</div>
 
-            <div class="media">
-              <img src="..." class="mr-3" alt="...">
-              <div class="media-body">
-                <h5 class="mt-0"><%= comment.author.username %></h5>
-                <p><%= comment.body %></p>
-              </div>
-            </div>
-
-          </li>
-        <% end %>
-      </ul>
-      <div class="card-body">
-        Add a comment: 
-        <%= render "comments/form", comment: photo.comments.build %>
-      </div>
     </div>
+
+    <p class="card-text mb-4"> <%= photo.caption %>
+
+    </p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <% photo.comments.each do |comment| %>
+      <li class="list-group-item">
+
+        <div class="media">
+          <img src="..." class="mr-3" alt="...">
+          <div class="media-body">
+            <h5 class="mt-0">
+              <%= link_to "@#{comment.author.username}", user_path(comment.author.username) %>
+            </h5>
+            <p><%= comment.body %></p>
+            <p class="font-weight-lighter">Posted <%= time_ago_in_words(comment.created_at) %> ago</p>
+          </div>
+        </div>
+
+      </li>
+    <% end %>
+  </ul>
+  <div class="card-body">
+    Add a comment: 
+    <%= render "comments/form", comment: photo.comments.build %>
+  </div>
+</div>

@@ -11,9 +11,9 @@
 </div>
 <div class="row">
   <div class="col-md-6 offset-md-3">
-    <ul>
+    <ul class="list-group">
       <% @user.followers.each do |follower| %>
-        <li>
+        <li class="list-group-item">
           <%= link_to follower.username, user_path(follower.username) %>
         </li>
       <% end %>
