@@ -20,12 +20,21 @@ task sample_data: :environment do
   end 
 
   p "creating new users"
+  
+  usernames = Array.new { Faker::Name.first_name }
 
-  12.times do 
+  usernames << "matt"
+  usernames << "alice"
+  usernames << "bob"
+  10.times do |username|
+    usernames << Faker::Name.first_name
+  end
+
+  usernames.each do |username|
     name = Faker::Name.first_name
     u = User.create(
-      email: "#{name}@example.com",
-      username: name,
+      email: "#{username}@example.com",
+      username: username.downcase,
       password: "password",
       private: [true,false].sample
     )
