@@ -10,8 +10,9 @@ Rails.application.routes.draw do
   resources :photos
   resources :users, only: :show  # get "/users/:id" => "users#show", as: :user
 
+# must stay at the end, very general much problems if higher
+  get "/:username" => "users#show"
 
-  
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
