@@ -1,32 +1,15 @@
 <div class="row">
   <div class="col-md-6 offset-md-3">
     <h1>
-      <%= @user.username %>'s page (<%= current_user.own_photos.count %> photos)
+      <%= @user.username %>'s page (<%= @user.own_photos.count %> photos)
     </h1>
+    <%= render "shared/usertabs" %>
 
-    <ul class="nav nav-pills nav-fill mb-4">
-      <li class="nav-item">
-        <%= link_to "Posts", user_path(@user.username), class: "nav-link active" %>
-      </li>
-      <li class="nav-item">
-        <%= link_to "Liked photos", liked_photos_path(@user.username), class: "nav-link" %>
-      </li>
 
-      <li class="nav-item">
-        <a class="nav-link" href="#">Feed</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Followers</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Following</a>
-      </li>
-
-    </ul>
   </div>
 </div>
 
-<% current_user.own_photos.each do |photo| %>
+<% @user.own_photos.each do |photo| %>
 
   <div class="col-md-6 offset-md-3 mb-4">
     <%= render "photos/photo", photo: photo %>

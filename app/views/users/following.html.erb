@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <h1>
+      <%= @user.username %> is following <%= @user.leaders.count %> accounts
+    </h1>
+    <%= render "shared/usertabs" %>
+
+  </div>
+
+</div>
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <ul>
+      <% @user.leaders.each do |leader| %>
+        <li>
+          <%= link_to leader.username, user_path(leader.username) %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
