@@ -66,9 +66,13 @@ task sample_data: :environment do
 
       user.followers.each do |follower|
         # adds likes to each added photo above
-        # if rand < 0.5
-        #   photo.fans << follower # shovel operator pushes into the likes table
-        # end
+        if rand < 0.5
+          n = Like.new
+          n.fan = follower
+          n.photo = photo
+          n.save
+          # photo.fans << follower # shovel operator pushes into the likes table
+        end
 
         # adds comments to each photo above one by one
         if rand < 0.33
